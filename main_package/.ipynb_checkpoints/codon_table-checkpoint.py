@@ -161,22 +161,22 @@ def iupac_synonymous_codon_dict(codon_table='Standard'):
 
 #### I need something that gets the absolute path of the .csv file to be imported
 
-def selected_missense_codons_dict():
+def selected_iupac_codons_dict():
     """return codon table of selected missense codons
     PROBLEM: codon table must be in directory where function is being called"""
     df = pd.read_csv('dms_codon_table_v2.csv')
     df.fillna('', inplace=True)
-    sele_dict = df.query('sele_missense_codons != ""').groupby('codon')['sele_missense_codons'].apply(list).to_dict()
+    sele_dict = df.query('sele_iupac_codon != ""').groupby('codon')['sele_iupac_codon'].apply(list).to_dict()
     for key,value in sele_dict.items():
         sele_dict[key] = list(itertools.chain.from_iterable([codon.split(' ') for codon in value]))
     return sele_dict
 
-def synonymous_missense_codons_dict():
+def synonymous_iupac_codons_dict():
     """return codon table including synonymous codons
     PROBLEM: codon table must be in directory where function is being called"""
     df = pd.read_csv('dms_codon_table_v2.csv')
     df.fillna('', inplace=True)
-    syn_dict = df.query('syn_missense_codons != ""').groupby('codon')['syn_missense_codons'].apply(list).to_dict()
+    syn_dict = df.query('syn_iupac_codon != ""').groupby('codon')['syn_iupac_codon'].apply(list).to_dict()
     for key,value in syn_dict.items():
         syn_dict[key] = list(itertools.chain.from_iterable([codon.split(' ') for codon in value]))
     return syn_dict

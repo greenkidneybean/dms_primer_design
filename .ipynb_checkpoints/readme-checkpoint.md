@@ -2,8 +2,10 @@
 
 Update on designing missense variant primers across windows of interest
 
-**STATUS:** it's really about defining the primer and homology arm
-- the missense and synonymous codons are just dropped in, can be figured out immediately
+**STATUS:** 
+- use bool logic for synonymous variants and remove stop codons in mut windows
+- need to check the final codon table
+- need a relative path setup for the dms_codon_table_v2
 
 ## Input:
 - Wildtype .gb file
