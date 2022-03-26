@@ -1,9 +1,19 @@
 #!/usr/bin/env python3
-
+import pkg_resources
 from itertools import product
 from Bio.Seq import Seq
 import pandas as pd
 import itertools
+
+iupac_dict = {'A':'A','C':'C','G':'G','T':'T','AC':'M','AG':'R','AT':'W','CG':'S','CT':'Y','GT':'K','ACG':'V','ACT':'H','AGT':'D','CGT':'B','ACGT':'N'}
+rev_iupac_dict = {value:key for key,value in iupac_dict.items()}
+
+def iupac_to_aa(iupac_codon):
+    """Return string of AAs encoded by input iupac missense codon"""
+    nuc_lists = [list(rev_iupac_dict[n]) for n in iupac_codon]
+    codon_list = [''.join(i) for i in list(itertools.product(*nuc_lists))]
+    aa_list = [str(Seq(codon).translate()) for codon in codon_list]
+    return ''.join(aa_list)
 
 def iupac_missense_codon_df(codon_table='Standard'):
     nucleotides = 'ACGT'
@@ -22,7 +32,7 @@ def iupac_missense_codon_df(codon_table='Standard'):
         aa = Seq(codon).translate(table=codon_table)[0]
 
         # loop through each position in codon
-        for position in range(3):      
+        for position in range(3):
             new_aas = []
             iupac_n = []
             new_codons = []
@@ -62,8 +72,8 @@ def iupac_missense_codon_df(codon_table='Standard'):
 
     # create dictionary
     codon_level_dict = {
-        'codon':codon_list, 
-        'aa':aa_list, 
+        'codon':codon_list,
+        'aa':aa_list,
         'position':position_list,
         'missense_nucleotides':nucleotides_list,
         'missense_codons':missense_codons_list,
@@ -97,7 +107,7 @@ def iupac_synonymous_codon_df(codon_table='Standard'):
         aa = Seq(codon).translate(table='Standard')[0]
 
         # loop through each position in codon
-        for position in range(3):      
+        for position in range(3):
             new_aas = []
             iupac_n = []
             new_codons = []
@@ -137,8 +147,8 @@ def iupac_synonymous_codon_df(codon_table='Standard'):
 
     # create dictionary
     codon_level_dict = {
-        'codon':codon_list, 
-        'aa':aa_list, 
+        'codon':codon_list,
+        'aa':aa_list,
         'position':position_list,
         'synonymous_nucleotides':nucleotides_list,
         'synonymous_codons':synonymous_codons_list,
@@ -161,6 +171,7 @@ def iupac_synonymous_codon_dict(codon_table='Standard'):
 
 #### I need something that gets the absolute path of the .csv file to be imported
 
+# SCRATCH
 def selected_iupac_codons_dict():
     """return codon table of selected missense codons
     PROBLEM: codon table must be in directory where function is being called"""
@@ -171,6 +182,7 @@ def selected_iupac_codons_dict():
         sele_dict[key] = list(itertools.chain.from_iterable([codon.split(' ') for codon in value]))
     return sele_dict
 
+# SCRATCH
 def synonymous_iupac_codons_dict():
     """return codon table including synonymous codons
     PROBLEM: codon table must be in directory where function is being called"""
@@ -181,9 +193,36 @@ def synonymous_iupac_codons_dict():
         syn_dict[key] = list(itertools.chain.from_iterable([codon.split(' ') for codon in value]))
     return syn_dict
 
+
+def iupac_codon_dicts():
+    """Returns four mapping dictionaries to generate missense variants
+    RETURNS:
+    - missense_dict
+    - synonymous_dict
+    - no_stop_dict
+    - no_stop_syn_dict
+    """
+    stream = pkg_resources.resource_stream(__name__, 'data/final_codon_table.csv')
+    df = pd.read_csv(stream)
+    df.fillna('', inplace=True)
+    col_list = ['sele_iupac_codon', 'syn_iupac_codon', 'no_stop_iupac_codon', 'no_stop_syn_iupac_codon']
+
+    # check that column names exist
+    for col in col_list:
+        if col not in df.columns.tolist():
+            print(f"ERROR: Column '{col}' not contained in file '{codon_table}'")
+            return
+    dict_list = []
+    for col in col_list:
+        temp_dict = df.query(f'{col} != ""').groupby('codon')[col].apply(list).to_dict()
+        for key,value in temp_dict.items():
+            temp_dict[key] = list(itertools.chain.from_iterable([codon.split(' ') for codon in value]))
+        dict_list.append(temp_dict)
+    return dict_list
+
 def synonymous_yeast_codons_dict():
-    """return iupac codon dictionary for synonymous codons most frequently used in yeast
-    PROBLEM: codon table must be in directory where function is being called"""
-    df = pd.read_csv('yeast_synonymous_codon_table.csv')
-    temp_df = dict(zip(df.codon, df.iupac))
-    return temp_df
+    """Return mapping dictionary of doped synonymous codons optimized for yeast"""
+    stream = pkg_resources.resource_stream(__name__, 'data/yeast_synonymous_codon_table.csv')
+    df = pd.read_csv(stream)
+    syn_dict = dict(zip(df.codon, df.iupac))
+    return syn_dict

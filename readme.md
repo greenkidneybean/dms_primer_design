@@ -1,11 +1,15 @@
 # DMS Missense Variants v2
-
+This is really two things:
+- package of python functions
+- command line tool
 Update on designing missense variant primers across windows of interest
 
 **STATUS:** 
-- use bool logic for synonymous variants and remove stop codons in mut windows
+- need to place the main script into the package as a function
+- should be using classes to pass data/info around
+- use bool logic to reduce synonymous variants and stop codons
 - need to check the final codon table
-- need a relative path setup for the dms_codon_table_v2
+
 
 ## Input:
 - Wildtype .gb file
