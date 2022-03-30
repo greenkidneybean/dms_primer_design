@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+
+# functions to design DMS primers
+# many functions require "args" input from script
+
 from . import codon_table
 from Bio.Seq import Seq
 from Bio.SeqUtils import MeltingTemp as mt
@@ -109,32 +113,41 @@ def sub_window(seq_data, data_dict, args):
     # generate synonymous vector codon list (top 2 codons for yeast)
     synonymous_win = [yeast_synonymous_dict[i].lower() for i in vect_list]
 
-    # generate iupac missense codons list (with synonymous codons)
+    # generate list of iupac missense codons to use
+    # check to add synonymous variants and remove stop codons
     iupac_codons = []
-    syn_bool_list = []
-    no_stop_list = []
-    for i, wt_codon in enumerate(wt_list):
-        syn_bool = rng.choice([True, False], p=[args.syn_snp_rate, 1-args.syn_snp_rate]) ### args.syn_snp_rate
-        syn_bool_list.append(syn_bool)
+    add_synonymous_codon_list = []
+    contains_stop_list = []
+    remove_stop_list = []
+    for wt_codon in wt_list:
+        # include synonymous variants (bool)
+        syn_bool = rng.choice([True, False], p=[args.syn_snp_rate, 1-args.syn_snp_rate])
+        add_synonymous_codon_list.append(syn_bool)
 
-        no_stop_bool = rng.choice([True, False], p=[args.stop_rate, 1-args.stop_rate]) ### args.stop_rate
-        no_stop_list.append(no_stop_bool)
+        # check if codon contains stop missense variants
+        stop_bool = codon_table.contains_stop_missense_variant(wt_codon, args.codon_table)
+        contains_stop_list.append(stop_bool)
 
-        # missense_dict, synonymous_dict, no_stop_dict, no_stop_syn_dict
+        # if codon contains stop variants
+        if stop_bool:
+            # remove stop variant (bool)
+            remove_stop_bool = rng.choice([True, False], p=[args.remove_stop_rate, 1-args.remove_stop_rate])
+        else:
+            remove_stop_bool = False
+        remove_stop_list.append(remove_stop_bool)
 
-        # need a sub-step to check if codon contains stop codon
-        # need a function to check if the wt codon encodes a missense stop codon
-        if syn_bool and no_stop_bool:
-            # use no_stop_syn_dictionary
+        # assign iupac codons for wt_codon
+        if syn_bool and remove_stop_bool:
+            # use no_stop_syn_dictionary, add syn and remove stops
             iupac_codons.append(no_stop_syn_dict[wt_codon])
-        elif syn_bool and not no_stop_bool:
-            # use synonymous_dictionary
+        elif syn_bool and not remove_stop_bool:
+            # use syn_dict, add syn and keep stops
             iupac_codons.append(synonymous_dict[wt_codon])
-        elif no_stop_bool and not syn_bool:
-            # use no_stop_dict
+        elif not syn_bool and remove_stop_bool:
+            # use the no_stop_dict, no syn and remove stops
             iupac_codons.append(no_stop_dict[wt_codon])
         else:
-            # use missense dict
+            # use missense_dict, no syn and keep stops
             iupac_codons.append(missense_dict[wt_codon])
 
     # make full-length oligo (homology arm, sub-window, primer), generate dataframe
@@ -153,8 +166,32 @@ def sub_window(seq_data, data_dict, args):
             full_forward_primer = data_dict['homology_arm'] + sub_window + data_dict['forward_primer']
 
             # add values to data_dict
-            dict_keys = ['name','codon_sub','wt','position','iupac', 'iupac_aa','sub_window', 'primer', 'synonymous_codons', 'no_stop_codons']
-            dict_values = [forward_primer_name, codon_sub, wt_list[i], aa_position, iupac_codon, iupac_aa, sub_window, full_forward_primer, syn_bool_list[i], no_stop_list[i]]
+            dict_keys = [
+                'name',
+                'codon_sub',
+                'wt_codon',
+                'position',
+                'iupac_codon',
+                'iupac_aa',
+                'sub_window',
+                'primer',
+                'add_synonymous_codon',
+                'contains_missense_stop',
+                'remove_missense_stop_codon'
+                ]
+            dict_values = [
+                forward_primer_name,
+                codon_sub,
+                wt_list[i],
+                aa_position,
+                iupac_codon,
+                iupac_aa,
+                sub_window,
+                full_forward_primer,
+                add_synonymous_codon_list[i],
+                contains_stop_list[i],
+                remove_stop_list[i]
+                ]
             for (key,value) in zip(dict_keys,dict_values):
                 data_dict[key] = value
 

@@ -8,6 +8,32 @@ import itertools
 iupac_dict = {'A':'A','C':'C','G':'G','T':'T','AC':'M','AG':'R','AT':'W','CG':'S','CT':'Y','GT':'K','ACG':'V','ACT':'H','AGT':'D','CGT':'B','ACGT':'N'}
 rev_iupac_dict = {value:key for key,value in iupac_dict.items()}
 
+def unique_missense_variants(codon, codon_table='Standard'):
+    """Return all unique AA variants for a given codon
+    INPUT: codon (str)
+    RETURN: unique AAs (str)
+    """
+    aa = str(Seq(codon).translate(table=codon_table))
+    nucs = 'ACTG'
+    missense_aa_list = []
+    for i in range(len(codon)):
+        for n in nucs:
+            new_codon = codon[:i] + n + codon[i+1:]
+            new_aa = str(Seq(new_codon).translate(table=codon_table))
+            if new_aa == aa:
+                continue
+            else:
+                missense_aa_list.append(new_aa)
+    return ''.join(set(missense_aa_list))
+
+def contains_stop_missense_variant(codon, codon_table='Standard'):
+    """Check if codon contains a stop missense variant
+    INPUT: codon (str)
+    RETURN: boolean (bool)
+    """
+    missense_aa = unique_missense_variants(codon, codon_table=codon_table)
+    return "*" in missense_aa
+
 def iupac_to_aa(iupac_codon):
     """Return string of AAs encoded by input iupac missense codon"""
     nuc_lists = [list(rev_iupac_dict[n]) for n in iupac_codon]

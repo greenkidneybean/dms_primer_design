@@ -22,7 +22,7 @@ parser.add_argument("--oligo_len", help="Ideal max total length of oligo", type=
 parser.add_argument("--melt_temp", help="Melting temp of fwd primer", type=int, default=50)
 parser.add_argument("--rev_melt_temp", help="Melting temp of rev primer", type=int, default=55)
 parser.add_argument("--syn_snp_rate", help="Percentage of synonymous SNPs 0-1", type=float, default=.05)
-parser.add_argument("--stop_rate", help="Percentage of stop codon SNPs to remove, default = 90% of stop SNPs", type=float, default=.90)
+parser.add_argument("--remove_stop_rate", help="Percentage of stop codon SNPs to remove, default = 90% of stop SNPs", type=float, default=.90)
 parser.add_argument("--rng_seed", help="Set seed for repoducibly selecting synonymous codon sites", type=int, default=42)
 parser.add_argument("--out_dir", help='Local output directory e.g. "data"', type=str)
 args = parser.parse_args()
@@ -59,7 +59,7 @@ seq_data['gene_start'] = gene_start
 seq_data['gene_end'] = gene_end
 seq_data['fasta_file'] = []
 seq_data['df'] = pd.DataFrame()
-seq_data['rng'] = np.random.RandomState(42)
+seq_data['rng'] = np.random.RandomState(int(args.rng_seed))
 
 # this needs to be fixed (user input? yaml?)
 targ_windows = ['window_1', 'window_2', 'window_3']
@@ -112,7 +112,7 @@ df['reverse_primer_tm'] = df['reverse_primer'].apply(lambda x: mt.Tm_NN(x)).roun
 df['reverse_primer_gc'] = df['reverse_primer'].apply(GC).round(1)
 df['reverse_primer_len'] = df['reverse_primer'].str.len()
 
-cols = ['name','sub_window_name','wt','position','iupac','codon_sub','iupac_aa','synonymous_codons','no_stop_codons','primer','homology_arm','sub_window','forward_primer','forward_primer_tm','forward_primer_gc','forward_primer_len','reverse_primer_name','reverse_primer','reverse_primer_tm','reverse_primer_gc','reverse_primer_len']
+cols = ['name','sub_window_name','wt_codon','position','iupac_codon','codon_sub','iupac_aa','add_synonymous_codon','contains_missense_stop','remove_missense_stop_codon','primer','homology_arm','sub_window','forward_primer','forward_primer_tm','forward_primer_gc','forward_primer_len','reverse_primer_name','reverse_primer','reverse_primer_tm','reverse_primer_gc','reverse_primer_len']
 df = df[cols]
 
 # save dataframe as .tsv
