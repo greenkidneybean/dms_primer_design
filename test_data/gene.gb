@@ -1,0 +1,85 @@
+LOCUS       gene_of_interest                  2269 bp ds-DNA     linear       31-MAR-2022
+DEFINITION  .
+FEATURES             Location/Qualifiers
+     gene            495..2150
+                     /label="GENE OF INTEREST"
+     CDS             495..2150
+                     /label="Translation 495-2150"
+     gene_1-1         1257..1271
+                     /label="mutagenesis window"
+     gene_1-2         1272..1286
+                     /label="mutagenesis window"
+     gene_1-3         1287..1301
+                     /label="mutagenesis window"
+     gene_1-4         1302..1316
+                     /label="mutagenesis window"
+     gene_1-5         1317..1328
+                     /label="mutagenesis window"
+     gene_2-1         1605..1619
+                     /label="mutagenesis window"
+     gene_2-2         1620..1634
+                     /label="mutagenesis window"
+     gene_2-3         1635..1649
+                     /label="mutagenesis window"
+     gene_3-1         1836..1847
+                     /label="mutagenesis window"
+     gene_3-2         1848..1859
+                     /label="mutagenesis window"
+     gene_4-1         1932..1949
+                     /label="mutagenesis window"
+     gene_4-2         1950..1967
+                     /label="mutagenesis window"
+     gene_4-3         1968..1982
+                     /label="mutagenesis window"
+     gene_4-4         1983..1997
+                     /label="mutagenesis window"
+     gene_4-5         1998..2012
+                     /label="mutagenesis window"
+     spacer          2151..2170
+                     /label="term-gap"
+     terminator      2171..2215
+                     /label="Synthetic Terminator (Synth1)"
+     spacer          2216..2243
+                     /label="gene amp-gap"
+     barcode         2244..2269
+                     /label="gene BC"
+ORIGIN
+        1 ataaccataa aagctagtat tgtagaatct ttattgttcg gagcagtgcg gcgcgaggca
+       61 catctgcgtt tcaggaacgc gaccggtgaa gacgaggacg cacggaggag agtcttcctt
+      121 cggagggctg tcacccgctc ggcggcttct aatccgtact tcaatatagc aatgagcagt
+      181 taagcgtatt actgaaagtt ccaaagagaa ggttttttta ggctaatcga cctcgagcag
+      241 atccgccagg cgtgtatata gcgtggatgg ccaggcaact ttagtgctga cacatacagg
+      301 catatatata tgtgtgcgac gacacatgat catatggcat gcatgtgctc tgtatgtata
+      361 taaaactctt gttttcttct tttctctaaa tattctttcc ttatacatta ggtcctttgt
+      421 agcataaatt actatacttc tatagacacg caaacacaaa tacacacact aaattaccgg
+      481 atcaattcCG TACGATGGCT GGTGATCTTT CAGCAGGTTT CTTCATGGAG GAACTTAATA
+      541 CATACCGTCA GAAGCAGGGA GTAGTACTTA AATATCAAGA ACTGCCTAAT TCAGGACCTC
+      601 CACATGATAG GAGGTTTACA TTTCAAGTTA TAATAGATGG AAGAGAATTT CCAGAAGGTG
+      661 AAGGTAGATC AAAGAAGGAA GCAAAAAATG CCGCAGCCAA ATTAGCTGTT GAGATACTTA
+      721 ATAAGGAAAA GAAGGCAGTT AGTCCTTTAT TATTGACAAC AACGAATTCT TCAGAAGGAT
+      781 TATCCATGGG GAATTACATA GGCCTTATCA ATAGAATTGC CCAGAAGAAA AGACTAACTG
+      841 TAAATTATGA ACAGTGTGCA TCGGGGGTGC ATGGGCCAGA AGGATTTCAT TATAAATGCA
+      901 AAATGGGACA GAAAGAATAT AGTATTGGTA CAGGTTCTAC TAAACAGGAA GCAAAACAAT
+      961 TGGCCGCTAA ACTTGCATAT CTTCAGATAT TATCAGAAGA AACCTCAGTG AAATCTGACT
+     1021 ACCTGTCCTC TGGTTCTTTT GCTACTACGT GTGAGTCCCA AAGCAACTCT TTAGTGACCA
+     1081 GCACACTCGC TTCTGAATCA TCATCTGAAG GTGACTTCTC AGCAGATACA TCAGAGATAA
+     1141 ATTCTAACAG TGACAGTTTA AACAGTTCTT CGTTGCTTAT GAATGGTCTC AGAAATAATC
+     1201 AAAGGAAGGC AAAAAGATCT TTGGCACCCA GATTTGACCT TCCTGACATG AAAGAAACAA
+     1261 AGTATACTGT GGACAAGAGG TTTGGCATGG ATTTTAAAGA AATAGAATTA ATTGGCTCAG
+     1321 GTGGATTTGG CCAAGTTTTC AAAGCAAAAC ACAGAATTGA CGGAAAGACT TACGTTATTA
+     1381 AACGTGTTAA ATATAATAAC GAGAAGGCGG AGCGTGAAGT AAAAGCATTG GCAAAACTTG
+     1441 ATCATGTAAA TATTGTTCAC TACAATGGCT GTTGGGATGG ATTTGATTAT GATCCTGAGA
+     1501 CCAGTGATGA TTCTCTTGAG AGCAGTGATT ATGATCCTGA GAACAGCAAA AATAGTTCAA
+     1561 GGTCAAAGAC TAAGTGCCTT TTCATCCAAA TGGAATTCTG TGATAAAGGG ACCTTGGAAC
+     1621 AATGGATTGA AAAAAGAAGA GGCGAGAAAC TAGACAAAGT TTTGGCTTTG GAACTCTTTG
+     1681 AACAAATAAC AAAAGGGGTG GATTATATAC ATTCAAAAAA ATTAATTCAT AGAGATCTTA
+     1741 AGCCAAGTAA TATATTCTTA GTAGATACAA AACAAGTAAA GATTGGAGAC TTTGGACTTG
+     1801 TAACATCTCT GAAAAATGAT GGAAAGCGAA CAAGGAGTAA GGGAACTTTG CGATACATGA
+     1861 GCCCAGAACA GATTTCTTCG CAAGACTATG GAAAGGAAGT GGACCTCTAC GCTTTGGGGC
+     1921 TAATTCTTGC TGAACTTCTT CATGTATGTG ACACTGCTTT TGAAACATCA AAGTTTTTCA
+     1981 CAGACCTACG GGATGGCATC ATCTCAGATA TATTTGATAA AAAAGAAAAA ACTCTTCTAC
+     2041 AGAAATTACT CTCAAAGAAA CCTGAGGATC GACCTAACAC ATCTGAAATA CTAAGGACCT
+     2101 TGACTGTGTG GAAGAAAAGC CCAGAGAAAA ATGAACGACA CACATGTTAG TAGCGAAAGC
+     2161 TCACTGACCG TATATATATA TAACTGTCTA GAAATAAAGA GTATCATCTT TCAAATCAAG
+     2221 CTCTGCGAGT ATGCTAACCA AGGCGCTTAA TATGCAATGA AATTGCTTA
+//

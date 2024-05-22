@@ -1,0 +1,22 @@
+# default config file
+#experiment:
+output_prefix: k3l_test
+output_path: ./
+rng_seed: 42
+#sequences:
+wt_seq: ./k3l_test.gb
+vector_seq: null
+#primer:
+homology_length: 20
+max_oligo_length: 60
+fwd_primer_melt_temp: 50
+rev_primer_melt_temp: 55
+#variant_design:
+mutagenesis_type: missense # saturation
+variant_windows:
+    - window_1
+    - window_2
+    - window_3
+synonymous_variant_rate: .05
+remove_stop_variant_rate: .9
+codon_table: Standard
