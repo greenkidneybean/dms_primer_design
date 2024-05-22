@@ -43,4 +43,3 @@ dependencies:
   - wheel=0.43.0=pyhd8ed1ab_1
   - xz=5.2.6=h166bdaf_0
   - yaml=0.2.5=h7f98852_2
-prefix: /data/chambersmj/conda/envs/dms_primer_design_env
