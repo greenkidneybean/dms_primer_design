@@ -1,6 +1,6 @@
 # DMS Primer Design
 
-Code that designes primers used to generate genetic variants from a gene of interest.
+Code for designing primers used to generate libraries of genetic variants.
 
 The `primer_design.py` script requires a `config.yaml` and `.gb` file for a gene of interest, and outputs a `.tsv` file of doped primers.  This script specifically designs primers that generate single-residue missense vairants that are attained by a single nucleotide change (or SNP) from the original gene of interest sequence. Example inputs are provided in the `test_data` directory. Variants are generated across "tiles" of the coding sequence that are listed as Features in the `.gb` and listed under "variant_windows" in the `config.yaml`.  Note that the variant codons are flanked with synonymous changes to the "vector_seq" file.
 
