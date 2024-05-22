@@ -8,7 +8,7 @@ The `primer_design.py` script requires a `config.yaml` and `.gb` file for a gene
 ```
 conda env create -f environment.yaml
 conda activate dms_primer_design_env
-python 
+python primer_design.py test_data/config.yaml
 ```
 
 ## Config File Parameters
