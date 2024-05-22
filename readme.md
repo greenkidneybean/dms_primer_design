@@ -12,7 +12,7 @@ python
 ```
 
 ## Config File
-output_prefix: the name of the gene of interest 
+output_prefix: the name of the gene of interest  
 output_path: directory where `.tsv` file will be saved 
 rng_seed: integer used to seed where synonymous and stop variants are designed 
 wt_seq: path to `.gb` file containing the coding sequence for the gene of interest from which SNP-accesible variants are designed 
