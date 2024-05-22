@@ -13,7 +13,7 @@ python
 
 ## Config File Parameters
 - **output_prefix:** (string) The name of the gene of interest  
-- **output_path:** (string) directory where `.tsv` file will be saved  
+- **output_path:** (string) Directory where `.tsv` file will be saved  
 - **rng_seed:** (integer) Used to seed where synonymous and stop variants are designed  
 - **wt_seq:** (string) Path to `.gb` file containing the coding sequence for the gene of interest from which SNP-accesible variants are designed  
 - **vector_seq:** (string) Path to alternate `.gb` file containing the coding sequence for the gene of interest.  Can be identical to the wt_seq path, but provides the option to design variants for a wildtype nucleotide sequence that may differ from a codon-optimized nucleotide sequence on the vector plasmid  
