@@ -1,67 +1,12 @@
-# DMS Missense Variants v2
-This is really two things:
-- package of python functions
-- command line tool
-Update on designing missense variant primers across windows of interest
+# DMS Primer Design
 
-**STATUS:** 
-- need to place the main script into the package as a function
-- should be using classes to pass data/info around
-- use bool logic to reduce synonymous variants and stop codons
-- need to check the final codon table
+Code to generate genetic variants of a gene of interest.
 
+The `primer_design.py` requires a `config.yaml` and `.gb` file for a gene of interest to generate a list of doped primers.  The designed primers can be used to produce a library of single-residue variants that can be stained by a single nucleotide change (or SNP) in the gene of interest.
 
-## Input:
-- Wildtype .gb file
-    - accomodate reverse complement?
-- Options:
-    - Vector .gb file
-    - synonymous mutation rate (def .05)
-    - random seed (def 42)
-    - codon table (def 'Standard')
-    - homology arm length (def 20)
-    - primer anneal temp (def 50)
-    - max primer length (aim for 60bp)
-    
-## Output:
-- .tsv codon table
-    - primer name
-    - primer seq
-    - codon variant (e.g. ACC71ACB)
-- fasta option?
-
-## Updates:
-- missense table correction
-- more complete synonymous variants table (random seed choice)
-- random seed for synonymous variants as controls (reproducible)
-- .gb input file
-    - reverse complement
-    - provide window names
-
-## RESOURCES
-- [Organizing python package imports](https://towardsdatascience.com/whats-init-for-me-d70a312da583)
-
-## Sketch
-
-imports
-arguments
-
-generate missense codon dictionary (script) # UPDATE: use selected dms v2 codon table
-generate synonymous codon dictionary (script) # UPDATE: use selected dms v2 codon table
-
-parse .gb file, loop for each matching feature "window"
-    - check that window is divisible by 3, codons
-    - check for upstream homology and downstream primer space (20bp, 40bp)
-
-    assign sub-window start index value
-    define which codons will contain synonymous controls at 5% frequency (based on wt)
-    define synonymous codons (based on vector)
-    (create all the codon variants immediately, then define subwindows based on primers)
-    
-    begin sub-window loop:
-        homology arm
-        primer design
-            - redefine sub-window start index
-        drop-in missense sub-window
-        
-aggregate into dataframe
+## Quick Start
+```
+conda env create -f environment.yaml
+conda activate dms_primer_design_env
+python 
+```
